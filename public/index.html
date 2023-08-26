@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans</title>
+    <script src="./totalbll.js" defer></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+        integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+</head>
+
+<body x-data="PhoneBill" class="p-3 mb-2 bg-danger-subtle text-emphasis-danger">
+    <div>
+        <div class="card-body text-center">
+            <h3 class="card-title">Total Phone Bill</h3>
+            <div>
+                <span>Plan name: </span><span x-text="plan_name"></span><br>
+                <span>SMS: </span><span x-text="sms_price"></span><br>
+                <span>CALL: </span><span x-text="call_price"></span>
+            </div>
+            <!-- <form> -->
+            <label>Plan name: </label>
+            <input  type="text" x-model="user_plan_name" placeholder="enter plan name " /><br>
+            <!-- <input  name="type" id="type" x-model="typedBill"> -->
+
+            <label>SMS Price: </label>
+            <input  type="number" x-model="user_sms_price" placeholder="enter a price" /><br>
+
+            <label>CALL Price: </label>
+            <input  type="number" x-model="user_call_price" placeholder="enter a price" class="btn btn-warning" /><br>
+            <input type="number" x-model="ed_id" x-show="hideForever"  />
+            <button
+                @click="addPlan()"  x-show="!hide">Add Plan</button>
+            <button  @click="updatePlan(), (hide=!hide) " x-show="hide">done</button>
+            <!-- </form> -->
+
+        </div>
+        <hr>
+
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>
+                        PLAN
+                    </th>
+                    <th>
+                        SMS
+                    </th>
+                    <th>
+                        CALL
+                    </th>
+
+                    <th>
+                        ACTION
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <template x-for="x in plans">
+                    <tr>
+                        <td x-text="x.plan_name"></td>
+                        <td x-text="x.sms_price"></td>
+                        <td x-text="x.call_price"></td>
+
+                        <td>
+                            <button class="btn btn-danger"
+                                @click="(user_plan_name=x.plan_name),(user_sms_price=x.sms_price), (user_call_price = x.call_price),(ed_id=x.id),(hide=true)">
+                                
+                                    edit
+                            </button>
+
+                            <button class="btn btn-danger" x-on:click="deletePlan(x.id)">
+                                
+                                delete
+                            </button>
+
+
+
+
+                        </td>
+                    </tr>
+                </template>
+
+            </tbody>
+        </table>
+<hr>
+        <div class="text-center">
+            <div class="card">
+
+                <div class="card-body">
+                    
+
+                    <div class="card-body">
+                        <h3 class="card-title">Total Phone Bill</h3>
+                        <div>
+                            <span>Bill: </span><span x-text="output"></span><br>
+
+
+                            
+                        </div>
+                        
+
+                        <input  type="text" x-model="plan"
+                        placeholder="enter Plan_name..." /><br>
+                        <input  type="text" x-model="action"
+                            placeholder="enter a bill..." /><br>
+
+                        <button c x-show="hidePlan" @click="phoneBill()">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.3/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+
+</html>
